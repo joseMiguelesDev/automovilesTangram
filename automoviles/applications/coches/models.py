@@ -7,7 +7,7 @@ from .managers import ManagerAutomovil
 ''' ------------------------------------------
                  MARCA 
 ------------------------------------------- ''' 
-class Marca(TimeStampedModel):
+class Marca(models.Model):
     # Campos
     nombre = models.CharField('Marca', max_length=35, unique=True)
     logo = models.ImageField('Logo', blank=True, upload_to='imgs')
@@ -25,7 +25,7 @@ class Marca(TimeStampedModel):
 ''' ------------------------------------------
                 MODELO 
 ------------------------------------------- ''' 
-class Modelo(TimeStampedModel):
+class Modelo(models.Model):
     # Campos
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     nombre = models.CharField('Nombre', max_length=35)
@@ -44,7 +44,7 @@ class Modelo(TimeStampedModel):
 ''' ------------------------------------------
                     COCHE 
 ------------------------------------------- ''' 
-class Coche(TimeStampedModel):
+class Coche(models.Model):
     # Campos
     fecha_creacion = models.DateField()
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE, related_name='marca')
@@ -59,7 +59,6 @@ class Coche(TimeStampedModel):
     class Meta:
         verbose_name = 'Coche'
         verbose_name_plural = 'Coches'
-        unique_together = [['fecha_creacion', 'marca', 'modelo']]
         
     def __str__(self):
         return self.marca.nombre + ' ' + self.modelo.nombre + ' con fecha de creación ' + str(self.fecha_creacion)

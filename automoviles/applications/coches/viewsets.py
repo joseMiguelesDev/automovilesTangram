@@ -7,10 +7,29 @@ from django.shortcuts import get_object_or_404
 from .models import *
 
 # Serializers
-from .serializers import AutomovilSerializer, SaveAutomovilSerializer
+from .serializers import (
+    AutomovilSerializer, 
+    SaveAutomovilSerializer,
+    ModeloSerializer
+)
+''' ------------------------------------------
+            VIEWSET PARA MODELO 
+------------------------------------------- '''
+class ModeloAPI(viewsets.ViewSet):
+    # Query
+    modelos = Modelo.objects.all()
+    
+    # Listado de modelos
+    def list(self, request, *args, **kwargs):
+        queryset = Modelo.objects.all()
+        info_serializada = ModeloSerializer(queryset, many=True)
+        return Response(info_serializada.data)
 
 
-# ViewSets
+ 
+''' ------------------------------------------
+            VIEWSET PARA COCHE 
+------------------------------------------- ''' 
 class AutomovilAPI(viewsets.ViewSet):
     # Query
     queryset = Coche.objects.all()

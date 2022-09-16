@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 # Vistas genéricas
@@ -121,7 +121,7 @@ class RegistrarAutomovil(CreateView):
     template_name = 'automoviles/registrar_automovil.html'
     form_class = FormularioAutomovil
     success_url = reverse_lazy('automoviles_app:automoviles-registrar')
-    
+  
     
 ''' --------------------------------------------------- 
                     UPDATEVIEWS

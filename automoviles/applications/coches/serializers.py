@@ -42,3 +42,12 @@ class SaveAutomovilSerializer(serializers.Serializer):
             raise serializers.ValidationError('El modelo no existe')
     
         return data
+    
+    
+''' ------------------------------------------
+            SERIALIZADOR PARA MODELO 
+------------------------------------------- ''' 
+class ModeloSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modelo
+        fields = ('__all__')

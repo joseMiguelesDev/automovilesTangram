@@ -4,6 +4,8 @@ from . import viewsets
 # Registramos las urls
 router = DefaultRouter()
 router.register(r'automoviles', viewsets.AutomovilAPI, basename='automoviles')
+router.register(r'modelos', viewsets.ModeloAPI, basename='modelos')
+
 
 # Patterns url
 urlpatterns = router.urls

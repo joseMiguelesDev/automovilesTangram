@@ -96,7 +96,7 @@ class FormularioAutomovil(forms.ModelForm):
                 attrs={
                     'placeholder':'Indique modelo del automóvil...',
                     'id':'id_modelo',
-                    'class':'form-select'
+                    'class':'form-select',
                 }
             ),
         }

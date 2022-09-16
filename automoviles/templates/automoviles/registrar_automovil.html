@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock css %}
 
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> 
+<script src="{% static 'js/index.js' %}"></script> 
+{% endblock js %}
 <!-- BLoque de contenido -->
 {% block content %}
 
@@ -36,9 +40,9 @@
                     </div>
                     <div class="row mb-3">
                         <label for="id_modelo" class="col-sm-4 col-form-label">Modelo</label>
-                        <div class="col-sm-8">
-                          {{form.modelo}}
-                        </div>
+                      <div class="col-sm-8">
+                        {{form.modelo}}
+                      </div>
                     </div>
                     <div class="row mb-3">
                       <label for="id_modelo" class="col-sm-4 col-form-label">Imagen (opcional)</label>
