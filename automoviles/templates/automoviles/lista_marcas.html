@@ -40,9 +40,9 @@
                     {% if m.logo %}
                     <img src="{{m.logo.url}}" class="card-img-top" alt="logo de {{m.nombre}}">
                     {% else %}
-                    <img src="{%static 'imgs/default.jpg' %}" class="card-img-top" alt="logo de {{m.nombre}}">
+                    <img src="{% static 'imgs/default.jpg' %}" class="card-img-top" alt="logo de {{m.nombre}}">
                     {% endif %}
-                    <span>{{ m.nombre }}</span>
+                    <span class="fw-bold">{{ m.nombre }}</span>
                     <div class="card-body">
                       <a href="{% url 'automoviles_app:automoviles-actualizar-marca' m.id %}" class="btn btn-primary">Editar</a>
                       <a href="{% url 'automoviles_app:automoviles-eliminar-marca' m.id %}" class="btn btn-primary">Eliminar</a>

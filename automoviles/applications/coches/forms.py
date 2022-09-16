@@ -4,8 +4,9 @@ from django.utils.html import strip_tags
 # Modelos
 from .models import Marca, Modelo, Coche
 
-
-# Formulario para registrar marcas
+''' ------------------------------------------
+       FORMULARIO PARA REGISTRAR MARCAS 
+------------------------------------------- '''
 class FormularioMarca(forms.ModelForm):
     class Meta:
         model = Marca
@@ -33,7 +34,9 @@ class FormularioMarca(forms.ModelForm):
         return nombre
     
     
-# Formulario para registrar modelos
+''' ------------------------------------------
+       FORMULARIO PARA REGISTRAR MODELOS 
+------------------------------------------- ''' 
 class FormularioModelo(forms.ModelForm):
     class Meta:
         model = Modelo
@@ -67,7 +70,9 @@ class FormularioModelo(forms.ModelForm):
         return nombre
     
     
-# Formulario para registrar automóviles
+''' ------------------------------------------
+      FORMULARIO PARA REGISTRAR VEHÍCULOS 
+------------------------------------------- ''' 
 class FormularioAutomovil(forms.ModelForm):
     class Meta:
         model = Coche

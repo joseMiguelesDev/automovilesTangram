@@ -2,7 +2,10 @@
 from rest_framework import serializers
 from .models import Coche, Marca, Modelo
 
-# Serializador para los coches
+
+''' ------------------------------------------
+            SERIALIZADOR PARA COCHE 
+------------------------------------------- ''' 
 class AutomovilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coche
@@ -23,16 +26,17 @@ class SaveAutomovilSerializer(serializers.Serializer):
     modelo = serializers.CharField()
     
     # Validamos que la marca insertada exista
-    def validate(self, data):        
-        marcas = Marca.objects.filter(nombre=data['marca'])
+    def validate_marca(self, data):      
+         
+        marcas = Marca.objects.filter(nombre=data)
         if len(marcas) == 0:
             raise serializers.ValidationError('La marca no existe')
         
         return data
     
     # Validamos el modelo
-    def validate(self, data):        
-        modelo = Modelo.objects.filter(nombre=data['modelo'])
+    def validate_modelo(self, data):        
+        modelo = Modelo.objects.filter(nombre=data)
         
         if len(modelo) == 0:
             raise serializers.ValidationError('El modelo no existe')

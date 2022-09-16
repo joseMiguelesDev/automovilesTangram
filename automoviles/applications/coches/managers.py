@@ -1,7 +1,9 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 
-# Managers para Automovil
+''' ------------------------------------------
+            MANAGERS PARA COCHE 
+------------------------------------------- ''' 
 class ManagerAutomovil(models.Manager):
     
     # Obtener un listado de automóviles por marca

@@ -4,7 +4,9 @@ from model_utils.models import TimeStampedModel
 # Managers
 from .managers import ManagerAutomovil
 
-''' MODELO => MARCA DE COCHE '''
+''' ------------------------------------------
+                 MARCA 
+------------------------------------------- ''' 
 class Marca(TimeStampedModel):
     # Campos
     nombre = models.CharField('Marca', max_length=35, unique=True)
@@ -20,7 +22,9 @@ class Marca(TimeStampedModel):
     
     
 
-''' MODELO => MODELO DE COCHE '''
+''' ------------------------------------------
+                MODELO 
+------------------------------------------- ''' 
 class Modelo(TimeStampedModel):
     # Campos
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
@@ -37,7 +41,9 @@ class Modelo(TimeStampedModel):
     
     
 
-''' MODELO => COCHE '''
+''' ------------------------------------------
+                    COCHE 
+------------------------------------------- ''' 
 class Coche(TimeStampedModel):
     # Campos
     fecha_creacion = models.DateField()

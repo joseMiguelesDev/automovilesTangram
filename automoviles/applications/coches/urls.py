@@ -61,28 +61,28 @@ urlpatterns = [
         name='automoviles-actualizar-marca'
     ),
     path(
-        'automoviles/actualizar/modelo/<pk>/',
+        'automoviles/actualizar/modelo/<int:pk>/',
         views.ActualizarModelo.as_view(),
         name='automoviles-actualizar-modelo'
     ),
     path(
-        'automoviles/actualizar/<pk>/',
+        'automoviles/actualizar/<int:pk>/',
         views.ActualizarAutomovil.as_view(),
         name='automoviles-actualizar'
     ),
     # Eliminación de registros
     path(
-        'automoviles/eliminar/marca/<pk>/',
+        'automoviles/eliminar/marca/<int:pk>/',
         views.EliminarMarca.as_view(),
         name='automoviles-eliminar-marca'
     ),
     path(
-        'automoviles/eliminar/modelo/<pk>/',
+        'automoviles/eliminar/modelo/<int:pk>/',
         views.EliminarModelo.as_view(),
         name='automoviles-eliminar-modelo'
     ),
     path(
-        'automoviles/eliminar/<pk>',
+        'automoviles/eliminar/<int:pk>',
         views.EliminarAutomovil.as_view(),
         name='automoviles-eliminar'
     ),
