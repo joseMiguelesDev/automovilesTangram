@@ -4,6 +4,42 @@ from .models import Coche, Marca, Modelo
 
 
 ''' ------------------------------------------
+            SERIALIZADOR PARA MODELO 
+------------------------------------------- ''' 
+class MarcaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Marca
+        fields = ('__all__')
+        
+
+class SaveMarca(serializers.Serializer):
+    nombre = serializers.CharField()
+    
+
+''' ------------------------------------------
+            SERIALIZADOR PARA MODELO 
+------------------------------------------- ''' 
+class ModeloSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modelo
+        fields = ('__all__')
+        
+
+class SaveModelo(serializers.Serializer):
+    marca = serializers.CharField()
+    nombre = serializers.CharField()
+    
+    # Validamos que la marca insertada exista
+    def validate_marca(self, data):      
+         
+        marcas = Marca.objects.filter(nombre=data)
+        if len(marcas) == 0:
+            raise serializers.ValidationError('La marca no existe')
+        
+        return data
+    
+
+''' ------------------------------------------
             SERIALIZADOR PARA COCHE 
 ------------------------------------------- ''' 
 class AutomovilSerializer(serializers.ModelSerializer):
@@ -44,10 +80,3 @@ class SaveAutomovilSerializer(serializers.Serializer):
         return data
     
     
-''' ------------------------------------------
-            SERIALIZADOR PARA MODELO 
-------------------------------------------- ''' 
-class ModeloSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Modelo
-        fields = ('__all__')

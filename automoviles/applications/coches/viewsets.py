@@ -10,22 +10,184 @@ from .models import *
 from .serializers import (
     AutomovilSerializer, 
     SaveAutomovilSerializer,
-    ModeloSerializer
+    ModeloSerializer,
+    SaveModelo,
+    MarcaSerializer,
+    SaveMarca
 )
+
+
+''' ------------------------------------------
+            VIEWSET PARA MARCA 
+------------------------------------------- '''
+class MarcaAPI(viewsets.ViewSet):
+    # Query
+    queryset = Marca.objects.all()
+    
+    # Listado de modelos
+    def list(self, request, *args, **kwargs):
+        queryset = self.queryset
+        info_serializada = MarcaSerializer(queryset, many=True)
+        return Response(info_serializada.data)
+
+
+    # Crear modelo nuevo
+    def create(self, request):
+        # Obtenemos la información y la deserializamos
+        info_deserializada = SaveMarca(data=request.data)
+        
+        # Comprobamos validez de los datos
+        info_deserializada.is_valid(raise_exception=True)
+        
+        # Creamos el modelo
+        marca = Marca.objects.create(
+            nombre=info_deserializada.validated_data['nombre'],
+        )
+        
+        # Guardamos registro
+        marca.save()
+        
+        # Retornamos código ok
+        return Response({
+            'Código':'200 ok'
+        })
+        
+    
+    # Función de recuperación de registro
+    def retrieve(self, request, pk=None):
+        # Recuperamos el objeto
+        marca = get_object_or_404(Marca.objects.all(), pk=pk)
+        
+        # Serializamos la información
+        serializer = MarcaSerializer(marca)
+        
+        # Retornamos el json
+        return Response(serializer.data)
+        
+        
+    # Función para actualizar datos 
+    def update(self, request, pk=None):
+        # Recuperamos el registro
+        marca = get_object_or_404(Marca.objects.all(), pk=pk)
+        
+        # Deserializamos la información
+        info_deserializada = SaveMarca(data=request.data)
+        
+        # COmprobamos que la información recibida sea válida
+        info_deserializada.is_valid(raise_exception=True)
+        
+        # Actualizamos los datos
+        marca.nombre = info_deserializada.validated_data['nombre']
+        
+        # Guardamos el registro
+        marca.save()
+        
+        # Retornamos código 
+        return Response({
+            'Código':'200 ok'
+        })
+        
+        
+    # Borrado de registro
+    def destroy(self, request, pk=None):
+        # Recuperamos el registro
+        marca = get_object_or_404(Marca.objects.all(), pk=pk)
+        
+        # Borramos el registro
+        marca.delete()
+        
+        # Retornamos código 
+        return Response({
+            'Código':'200 ok'
+        })
+        
+        
+        
 ''' ------------------------------------------
             VIEWSET PARA MODELO 
 ------------------------------------------- '''
 class ModeloAPI(viewsets.ViewSet):
     # Query
-    modelos = Modelo.objects.all()
+    queryset = Modelo.objects.all()
     
     # Listado de modelos
     def list(self, request, *args, **kwargs):
-        queryset = Modelo.objects.all()
+        queryset = self.queryset
         info_serializada = ModeloSerializer(queryset, many=True)
         return Response(info_serializada.data)
 
 
+    # Crear modelo nuevo
+    def create(self, request):
+        # Obtenemos la información y la deserializamos
+        info_deserializada = SaveModelo(data=request.data)
+        
+        # Comprobamos validez de los datos
+        info_deserializada.is_valid(raise_exception=True)
+        
+        # Creamos el modelo
+        modelo = Modelo.objects.create(
+            marca=Marca.objects.get(nombre=info_deserializada.validated_data['marca']),
+            nombre=info_deserializada.validated_data['nombre']
+        )
+        
+        # Guardamos registro
+        modelo.save()
+        
+        # Retornamos código ok
+        return Response({
+            'Código':'200 ok'
+        })
+        
+    
+    # Función de recuperación de registro
+    def retrieve(self, request, pk=None):
+        # Recuperamos el objeto
+        modelo = get_object_or_404(Modelo.objects.all(), pk=pk)
+        
+        # Serializamos la información
+        serializer = ModeloSerializer(modelo)
+        
+        # Retornamos el json
+        return Response(serializer.data)
+        
+        
+    # Función para actualizar datos 
+    def update(self, request, pk=None):
+        # Recuperamos el registro
+        modelo = get_object_or_404(Modelo.objects.all(), pk=pk)
+        
+        # Deserializamos la información
+        info_deserializada = SaveModelo(data=request.data)
+        
+        # COmprobamos que la información recibida sea válida
+        info_deserializada.is_valid(raise_exception=True)
+        
+        # Actualizamos los datos
+        modelo.nombre = info_deserializada.validated_data['nombre']
+        modelo.marca = Marca.objects.get(nombre=info_deserializada.validated_data['marca'])
+        
+        # Guardamos el registro
+        modelo.save()
+        
+        # Retornamos código 
+        return Response({
+            'Código':'200 ok'
+        })
+        
+        
+    # Borrado de registro
+    def destroy(self, request, pk=None):
+        # Recuperamos el registro
+        modelo = get_object_or_404(Modelo.objects.all(), pk=pk)
+        
+        # Borramos el registro
+        modelo.delete()
+        
+        # Retornamos código 
+        return Response({
+            'Código':'200 ok'
+        })
  
 ''' ------------------------------------------
             VIEWSET PARA COCHE 
@@ -36,7 +198,7 @@ class AutomovilAPI(viewsets.ViewSet):
     
     # Listar todos los vehículos
     def list(self, request, *args, **kwargs):
-        queryset = Coche.objects.all()
+        queryset = self.queryset
         info_serializada = AutomovilSerializer(queryset, many=True)
         return Response(info_serializada.data)
 
