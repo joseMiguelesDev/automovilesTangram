@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Título -->
+{% block title %}Actualizar marca {% endblock title %}
+
+<!-- Bloque de estilos -->
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/titulos.css' %}">
+{% endblock css%}
+
+<!-- Bloque de contenido -->
+{% block content %}
+
+  <!-- Inclusión de la cabecera -->
+    {% include 'includes/header.html' %}
+    <h1>Actualizar Marca</h1>
+    
+    <!-- Formulario de actualización de la marca -->
+    <div class="container text-center">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-6">
+                <form method='post' enctype='multipart/form-data'>{% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="id_nombre" class="col-sm-2 col-form-label">Marca</label>
+                      <div class="col-sm-10">
+                        {{form.nombre}}
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar marca</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
